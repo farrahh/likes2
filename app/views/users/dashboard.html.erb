@@ -1,0 +1,25 @@
+<div class="container">
+
+<div class="page-header">
+  <p class="text-right"> <a href='/logout'>Logout</a> </p>
+  <p class="text-left"> <a href='/add'>Add a secret</a> </p>
+</div>
+<h1> Hello, <%= @user.name%></h1>
+
+
+<h3> All Secrets : </h3>
+<% @secrets.each do |secret| %>
+<h4> <%=secret.content %> </h4>
+<p> Number of likes:<%=secret.likes.count%></p>
+
+          <% if @user.id == secret.user.id%>
+          <a href="/create_like/<%=secret.id%>" data-method="post"><button type="submit" id="like_button" class="btn btn-primary">Like</button></a>
+          <a href="/unlike/<%=secret.id%>" data-method="post"><button type="submit" class="btn btn-primary">Unlike</button></a>
+          <a href="/destroy/dashboard/<%=secret.id%>" data-method="post"><button type="submit" class="btn btn-danger">Delete</button></a>
+          <% end %>
+
+          <% if @user.id != secret.user.id%>
+          <a href="/create_like/<%=secret.id%>" data-method="post"><button type="submit" id="like_button" class="btn btn-primary">Like</button></a>
+          <a href="/unlike/<%=secret.id%>" data-method="post"><button type="submit" class="btn btn-primary">Unlike</button></a>
+        <% end %>
+  <% end %>
